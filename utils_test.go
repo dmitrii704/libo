@@ -50,10 +50,7 @@ func TestIsPalindrome(t *testing.T) {
 
 func TestSerialize(t *testing.T) {
 	type obj struct {
-		Num    int `json:"num"`
-		str    string
-		arrnum []int
-		arrstr []string
+		Num int `json:"num"`
 	}
 
 	js := JSONSerializer{}
