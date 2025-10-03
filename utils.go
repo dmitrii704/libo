@@ -1,5 +1,13 @@
 package main
 
+import "encoding/json"
+
+type JSONSerializer struct{}
+
+func (js JSONSerializer) Serialize(d any) ([]byte, error) {
+	return json.Marshal(d)
+}
+
 func Reverse(s string) string {
 	st, end := 0, len(s)-1
 	buf := []byte(s)
