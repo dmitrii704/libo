@@ -9,8 +9,8 @@ func (js JSONSerializer) Serialize(d any) ([]byte, error) {
 }
 
 func Reverse(s string) string {
-	st, end := 0, len(s)-1
-	buf := []byte(s)
+	buf := []rune(s)
+	st, end := 0, len(buf)-1
 
 	for st < end {
 		buf[st], buf[end] = buf[end], buf[st]
@@ -36,7 +36,7 @@ func IsPalindrome(s string) bool {
 			continue
 		}
 
-		if s[st] != s[end] {
+		if toLower(s[st]) != toLower(s[end]) {
 			return false
 		}
 
@@ -47,10 +47,22 @@ func IsPalindrome(s string) bool {
 	return true
 }
 
-func isLetter(ch byte) bool {
+type symbol interface {
+	rune | byte
+}
+
+func isLetter[T symbol](ch T) bool {
 	if ch >= 'a' && ch <= 'z' || ch >= 'A' && ch <= 'Z' {
 		return true
 	}
 
 	return false
+}
+
+func toLower[T symbol](ch T) T {
+	if isLetter(ch) && ch < 'a' {
+		ch += 32
+	}
+
+	return ch
 }
